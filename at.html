@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AUTOTASK</title>
+</head>
+<body>
+  <input type="text" id="desc" placeholder="Activity" />
+  <button onclick="startTask()">Start</button>
+  <button onclick="endTask()">End</button>
+
+  <script>
+    let startTime = null;
+
+    function startTask() {
+      startTime = new Date();
+      alert("Task started!");
+    }
+
+    function endTask() {
+      if (!startTime) {
+        alert("Start timer first!");
+        return;
+      }
+
+      const endTime = new Date();
+      const duration = (endTime - startTime) / 60000; // in minutes
+      const description = document.getElementById("desc").value;
+
+      const data = {
+        description,
+        startTime: startTime.toISOString(),
+        endTime: endTime.toISOString(),
+        duration: duration.toFixed(2)
+      };
+
+      fetch("https://script.google.com/macros/s/AKfycbwjTmCapo9LiKLqmr4Ax7oRYpzom1aKgG6_OTHQoimBApgQyUQ1xb5UwHbjXmGE1JCS0w/exec.google.com/macros/s/AKfycbxIlsjgjnPHMpoqn9GtY-gobgVFCtoS9qUdKEm8aT0fY_9w4Vm5N6206xGlP0r1AFyz7Q/exec", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(res => {
+        if (res.ok) {
+          alert("Task logged!");
+        } else {
+          alert("Failed to log task");
+        }
+      });
+
+      // Reset timer
+      startTime = null;
+    }
+  </script>
+</body>
+</html>
