@@ -33,11 +33,11 @@
         duration: duration.toFixed(2)
       };
 
-      fetch("https://script.google.com/macros/s/AKfycbwjTmCapo9LiKLqmr4Ax7oRYpzom1aKgG6_OTHQoimBApgQyUQ1xb5UwHbjXmGE1JCS0w/exec.google.com/macros/s/AKfycbxIlsjgjnPHMpoqn9GtY-gobgVFCtoS9qUdKEm8aT0fY_9w4Vm5N6206xGlP0r1AFyz7Q/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbxIlsjgjnPHMpoqn9GtY-gobgVFCtoS9qUdKEm8aT0fY_9w4Vm5N6206xGlP0r1AFyz7Q/exec", {
         method: "POST",
         body: JSON.stringify(data),
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "text/plain"  // Avoids preflight
         }
       }).then(res => {
         if (res.ok) {
